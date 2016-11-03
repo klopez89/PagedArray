@@ -153,8 +153,9 @@ extension PagedArray : CollectionType {
     
     public subscript (index: Index) -> Element? {
         let pageNumber = pageNumberForIndex(index)
+        let elementIndex = index%pageSize
         
-        if let page = pages[pageNumber] {
+        if let page = pages[pageNumber] where elementIndex < page.count {
             return page[index%pageSize]
         } else {
             // Return nil for all pages that haven't been set yet
